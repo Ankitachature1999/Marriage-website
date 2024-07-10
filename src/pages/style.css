@@ -1,0 +1,117 @@
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100vh; /* Set body height to 100% viewport height */
+    background-image: url('../assets/images/couple.jpg'); /* Set background image */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex; /* Allow content to be centered vertically */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically within the flexbox */
+  }
+  
+  /* Optional: Style your React app container (if needed) */
+  #app-container {
+    width: 100%; /* Set width to 100% */
+  }
+
+  .step-card {
+  border: none;
+  background: #f7f9fc;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.step-card:hover {
+  transform: translateY(-10px);
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #00BFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.icon {
+  font-size: 2em;
+  color: #fff;
+}
+
+.step-link {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.step-link:hover {
+  color: #0056b3;
+}
+.step-card {
+  border: none;
+  background: transparent;
+}
+
+.icon-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #f8f9fa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.step-link:hover {
+  text-decoration: underline;
+}
+
+.step-line {
+  width: 50px;
+  height: 2px;
+  background-color: #ddd;
+  margin: 0 20px;
+}
+
+.about-card {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.btn-hover {
+  transition: background-color 0.3s ease;
+}
+
+.btn-hover:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+

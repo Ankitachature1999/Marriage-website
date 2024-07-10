@@ -1,0 +1,109 @@
+.pink-navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #b4245d;;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Ensure it stays on top */
+}
+
+.call-us {
+  color: #f3efef;
+  font-size: large;
+  position: relative;
+ margin-left: 65rem;
+
+}
+.welcome{
+  color: #f3efef;
+  position: relative;
+  margin-top: 1.2rem;
+}
+
+.transparent-navbar {
+  position: sticky;
+  top: 25px; /* Push it down by the height of the pink navbar */
+  width: 100%;
+  background: #e72e77 !important; /* Transparent background */
+  z-index: 10; /* Ensure it stays on top */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
+.nav-link-spacing {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.login-btn {
+  color: white;
+  border-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.register-btn {
+  background-color: #ff4081;
+  border: none;
+  color: white;
+}
+
+.navbar {
+  background: rgba(0, 0, 0, 0.5); /* Transparent background */
+}
+
+.navbar .nav-link-spacing {
+  margin-left: 20px;
+  color: white;
+}
+
+.navbar .nav-link-spacing:hover {
+  color: #ff4081;
+}
+
+.multi-step-form.show {
+  display: block;
+}
+
+.multi-step-form.hide {
+  display: none;
+}
+
+.multi-step-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+}

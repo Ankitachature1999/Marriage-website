@@ -1,0 +1,52 @@
+.careerForm {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.careerFormLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.careerFormSelect,
+.careerFormInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.careerFormSelect:focus,
+.careerFormInput:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.careerFormSubmit {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.careerFormSubmit:hover {
+  background-color: #0056b3;
+}
+
+.careerFormAddressFields label,
+.careerFormAddressFields input[type="text"] {
+  display: block;
+  margin-bottom: 8px;
+}
+
