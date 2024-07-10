@@ -57,21 +57,21 @@ const About = () => {
   return (
     <>
       <div className="about-section">
-        <h1 style={{ position: 'relative', marginTop: '50px' }}>About Us Page</h1>
-        <p>Some text about who we are and what we do.</p>
-        <p>Resize the browser window to see that this page is responsive by the way.</p>
+        <h1 style={{ position: 'relative', marginTop: '80px',color:"#ff3385" }}>About Us Page</h1>
+       {/* <p>Some text about who we are and what we do.</p>
+        <p>Resize the browser window to see that this page is responsive by the way.</p> */}
       </div>
       <div>
-        <h3 style={{ position: 'relative', textAlign: 'center', marginTop: '20px' }}>Feel free to adjust the content to better fit your website's style and tone.</h3>
-        <p style={{ position: 'relative', textAlign: 'center' }}>Genuine Profiles | Safe & Secure | Detailed Family Information</p>
+        <h3 style={{ position: 'relative', textAlign: 'center', marginTop: '20px',fontSize:'25px' }}>"Contact us to start your journey towards finding a meaningful and lasting relationship."</h3>
+        <p style={{ position: 'relative', textAlign: 'center',  }}>Genuine Profiles | Safe & Secure | Detailed Family Information</p>
         <div style={{ display: 'flex', justifyContent: 'space-around', position: 'relative', marginTop: '20px', border: '2px solid pink' }}>
           <div style={{  }}>
           <div className="Appp" style={{textAlign:'center',}}>
-      <h1 style={{fontSize:'64px',lineHeight:'1.2em',verticalAlign:'baseline',textAlign:'start', marginBottom:'40px',color:'#ff3385',position:'relative', marginTop:'6rem' ,  marginLeft:'15px' }}>CREATE YOUR PROFILE<br/>TO FIND MATCH.....</h1>
+      <h1 style={{fontSize:'45px',lineHeight:'1.2em',verticalAlign:'baseline',textAlign:'start', marginBottom:'40px',color:'#ff3385',position:'relative', marginTop:'6rem' ,  marginLeft:'15px' }}>CREATE YOUR PROFILE<br/>TO FIND MATCH.....</h1>
       <p style={{textAlign:'start', position:'relative', marginLeft:'15px'}}>hello this is ankita and i love you  Ensure your CSS for the slideshow is correctly <br/>Feel free to adjust the content to better fit website's style and tone.......</p>
     <br/>
     
-    <Button style={{backgroundColor:'rgb(255, 0, 102)',color:'white', position:'relative', marginRight:'580px', border:'1px solid pink'}} variant="pink" size="lg" active>
+    <Button style={{backgroundColor:'rgb(255, 0, 102)',color:'white', position:'relative', marginRight:'450px', border:'1px solid pink'}} variant="pink" size="lg" active>
         Register Now
       </Button>{' '}
             
