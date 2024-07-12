@@ -1,33 +1,36 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import './ShowProfile.css';
 
 const ShowProfile = () => {
-  const location = useLocation();
-  const formData = location.state?.formData || {};
+  const formData = JSON.parse(localStorage.getItem('formData'));
+
+  if (!formData) {
+    return <div>No profile data found.</div>;
+  }
 
   return (
-    <div>
+    <div className="profile">
       <h1>Profile</h1>
-      <p>Full Name: {formData.fullName}</p>
-      <p>Email: {formData.email}</p>
-      <p>Gender: {formData.gender}</p>
-      <p>Date of Birth: {formData.dateOfBirth}</p>
-      <p>Height: {formData.height}</p>
-      <p>Marital Status: {formData.maritalStatus}</p>
-      <p>Mother Tongue: {formData.motherTongue}</p>
-      <p>Religion: {formData.religion}</p>
-      <p>City: {formData.city}</p>
-      <p>Pin Code: {formData.pinCode}</p>
-      <p>Highest Qualification: {formData.highestQualification}</p>
-      <p>College Name: {formData.collegeName}</p>
-      <p>Job: {formData.job}</p>
-      <p>Job Type: {formData.jobType}</p>
-      <p>Annual Income: {formData.annualIncome}</p>
-      <p>Father Name: {formData.fatherName}</p>
-      <p>Mother Name: {formData.motherName}</p>
-      <p>Live With Family: {formData.liveWithFamily}</p>
-      <p>Family Type: {formData.familyType}</p>
-      <p>Diet: {formData.diet}</p>
+      <p><strong>Full Name:</strong> {formData.fullName}</p>
+      <p><strong>Email:</strong> {formData.email}</p>
+      <p><strong>Gender:</strong> {formData.gender}</p>
+      <p><strong>Date of Birth:</strong> {formData.dateOfBirth}</p>
+      <p><strong>Height:</strong> {formData.height}</p>
+      <p><strong>Marital Status:</strong> {formData.maritalStatus}</p>
+      <p><strong>Mother Tongue:</strong> {formData.motherTongue}</p>
+      <p><strong>Religion:</strong> {formData.religion}</p>
+      <p><strong>City:</strong> {formData.city}</p>
+      <p><strong>Pin Code:</strong> {formData.pinCode}</p>
+      <p><strong>Highest Qualification:</strong> {formData.highestQualification}</p>
+      <p><strong>College Name:</strong> {formData.collegeName}</p>
+      <p><strong>Job:</strong> {formData.job}</p>
+      <p><strong>Job Type:</strong> {formData.jobType}</p>
+      <p><strong>Annual Income:</strong> {formData.annualIncome}</p>
+      <p><strong>Father's Name:</strong> {formData.fatherName}</p>
+      <p><strong>Mother's Name:</strong> {formData.motherName}</p>
+      <p><strong>Live With Family:</strong> {formData.liveWithFamily}</p>
+      <p><strong>Family Type:</strong> {formData.familyType}</p>
+      <p><strong>Diet:</strong> {formData.diet}</p>
     </div>
   );
 };

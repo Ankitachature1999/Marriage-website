@@ -43,7 +43,7 @@
     text-align: center;
   
     color: rgb(45, 44, 44);
-    background-image: url('/Users/aakashtuvar/Desktop/Matrimony/public/images/contact-4.jpg'); /* Replace with the actual path to your image */
+    background-image: url('../../public//images/contact-4.jpg'); /* Replace with the actual path to your image */
     background-size: cover; /* Ensures the background image covers the entire div */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the background image from repeating */

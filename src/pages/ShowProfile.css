@@ -1,0 +1,20 @@
+.profile {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .profile h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .profile strong {
+    margin-right: 10px;
+  }
+  

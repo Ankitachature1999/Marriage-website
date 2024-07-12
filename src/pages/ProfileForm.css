@@ -238,3 +238,129 @@
   cursor: pointer;
   border: #ff0077;
 }
+
+
+
+
+
+.circle-icon {
+  background-color: #c74a65;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.icon {
+  font-size: 3em;
+  color: #c74a65;
+}
+
+.arrow {
+  width: 40px;
+  height: 2px;
+  background-color: #c74a65;
+  position: relative;
+}
+
+.arrow:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 10px solid #c74a65;
+}
+
+
+
+
+
+
+
+
+
+
+.stats-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #fff;
+}
+
+.stats-section h2 {
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  flex: 1;
+  min-width: 200px;
+  max-width: 250px;
+  margin: 10px;
+  text-align: center;
+}
+
+.icon-container {
+  margin-bottom: 10px;
+}
+
+.icon-container .icon {
+  font-size: 60px; /* Adjust the size as needed */
+}
+
+.stat-box h3 {
+  color: #c74a65;
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.stat-box p {
+  color: #333;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.stat-box span {
+  color: #666;
+  font-size: 14px;
+}
+
+.cta {
+  margin-top: 20px;
+  background-color: #b4245d;; /* Background color for the call-to-action section */
+  padding: 20px;
+  color: white;
+}
+
+.cta p {
+  font-size: 18px;
+  color: white;
+  display: inline;
+}
+
+.cta button {
+  background-color: white;
+  color: rgb(255, 0, 102);
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.cta button:hover {
+  background-color: #e6e6e6;
+}

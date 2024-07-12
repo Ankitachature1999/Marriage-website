@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PersonalDetails from './PersonalDetails ';
 import EducationalDetails from './EducationalDetails';
 import FamilyDetails from './FamilyDetails';
-import './MultiStepForm.css';
-
+import './MultiStepForm.css'
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -52,7 +51,8 @@ const MultiStepForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/profile', { state: { formData } });
+    localStorage.setItem('formData', JSON.stringify(formData));
+    navigate('/ShowProfile');
   };
 
   const closeForm = () => {
