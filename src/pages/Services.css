@@ -1,87 +1,129 @@
-General styling
- .services {
-    padding: 50px 20px;
-    text-align: center;
-    background-color: #7da0e0;
-  }  
-  
-  .services h1,
-  .services h2 {
-    margin-bottom: 30px;
-    color: #2c3e50;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .services ul {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  } 
-  
-  .services li {
-    margin: 10px 20px;
-    font-size: 18px;
-    color: #34495e;
-  }
-  
-  /* Packages section styling */
-  .packages {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .package-card {
-    background-color: #ffffff;
-    border: 1px solid #e1e4e8;
-    border-radius: 10px;
-    padding: 25px;
-    margin: 10px;
-    width: 300px;
-    text-align: left;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .package-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  .package-card h3 {
-    margin-top: 0;
-    color: #3498db;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .package-card p {
-    margin: 10px 0;
-    color: #7f8c8d;
-    font-size: 16px;
-  }
-  
-  .package-card p:last-child {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-  
-  /* Button styling */
-  .package-card button {
-    background-color: #3498db;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .package-card button:hover {
-    background-color: #2980b9;
-  }
-  
+.Services {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 50px; /* Space from the top */
+}
+
+h1 {
+  margin-bottom: 20px; /* Space below the headline */
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  margin-right: 5px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab.active {
+  background-color: #b4245d;
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.package-content {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 10px; /* Space between the tab and content */
+  background-color: #fff;
+  width: 80%; /* Adjust width to center content */
+  text-align: left; /* Align text to the left */
+}
+
+.package-content ol {
+  list-style-type: decimal;
+  padding-left: 20px; /* Indent the list */
+}
+
+.package-content ol li {
+  margin-bottom: 10px;
+}
+
+.pay-now-button {
+  display: block;
+  margin: 20px auto 0; /* Center the button and add space above */
+  padding: 10px 20px;
+  background-color: #b4245d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pay-now-button:hover {
+  background-color: #a31d4d;
+}
+
+
+.trusted-brand {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #b4245d;
+  color: #fff;
+  display: flex;
+  flex: inline;
+  text-align: center; /* Center the text inside the div */
+}
+
+.trusted-brand h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.register-now-button {
+  padding: 5px 10px;
+  background-color: #fff;
+  color: #b4245d;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-left: 10px; /* Space between the text and button */
+}
+
+
+
+
+
+.ctta {
+  margin-top: 20px;
+  background-color: #b4245d;; /* Background color for the call-to-action section */
+  padding: 20px;
+  color: white;
+}
+
+.ctta p {
+  font-size: 18px;
+  color: white;
+  display: inline;
+}
+
+.ctta button {
+  background-color: white;
+  color: rgb(255, 0, 102);
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.ctta button:hover {
+  background-color: #e6e6e6;
+}
