@@ -236,7 +236,9 @@ function Home() {
       </div>
       <div className="cta">
         <p>So what are you waiting for? Let us find Your Dream Partner</p>
+        <Link to="/register">
         <button>REGISTER FREE</button>
+        </Link>
       </div>
     </div>
 

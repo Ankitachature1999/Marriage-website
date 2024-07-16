@@ -13,7 +13,7 @@ import Testimonials from './pages/Testimonials';
 import CareerForm from './pages/CareerForm';
 import MultiStepForm from './pages/MultiStepForm';
 // import SearchForm from './components/SearchForm'; // Adjusted import
-
+import PaymentModal from './pages/PaymentModal';
 function App() {
   return (
     <Router>
@@ -31,7 +31,7 @@ function App() {
           <Route path="/educationform" element={<EducationalDetails />} /> {/* Updated route */}
           <Route path="/careerform" element={<CareerForm />} />
           <Route path="/testimonial" element={<Testimonials />} />
-          {/* <Route path="/search" element={<SearchForm />} /> */}
+          <Route path="/paymentmodal" element={<PaymentModal />} /> 
         </Routes>
         <Footer />
       </div>

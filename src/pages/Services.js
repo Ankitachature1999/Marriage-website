@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Services.css';
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState('Free');
+  const navigate = useNavigate();
 
   const serviceContent = {
     Free: (
@@ -21,7 +23,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button">Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/paymentModal')}>Go to Payment Options</button>
       </div>
     ),
     Silver: (
@@ -40,7 +42,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button">Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/payment')}>Pay Now</button>
       </div>
     ),
     Gold: (
@@ -59,7 +61,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button">Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/payment')}>Pay Now</button>
       </div>
     ),
     Diamond: (
@@ -78,7 +80,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button">Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/payment')}>Pay Now</button>
       </div>
     ),
   };

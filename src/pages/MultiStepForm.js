@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import PersonalDetails from './PersonalDetails ';
 import EducationalDetails from './EducationalDetails';
 import FamilyDetails from './FamilyDetails';
-import './MultiStepForm.css'
+import './MultiStepForm.css';
+import axios from 'axios';
+
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -28,7 +30,8 @@ const MultiStepForm = () => {
     motherName: '',
     liveWithFamily: '',
     familyType: '',
-    diet: ''
+    diet: '',
+    profileImage: null // Make sure to initialize file inputs as null
   });
 
   const navigate = useNavigate();
@@ -41,6 +44,14 @@ const MultiStepForm = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files[0],
+    }));
+  };
+
   const nextStep = () => {
     setStep((prevStep) => prevStep + 1);
   };
@@ -49,10 +60,23 @@ const MultiStepForm = () => {
     setStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem('formData', JSON.stringify(formData));
-    navigate('/ShowProfile');
+    const formDataObj = new FormData();
+    for (const key in formData) {
+      formDataObj.append(key, formData[key]);
+    }
+
+    try {
+      await axios.post('http://localhost:3000/register', formDataObj, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      navigate('/ShowProfile');
+    } catch (error) {
+      console.error('Error registering user:', error);
+    }
   };
 
   const closeForm = () => {
@@ -62,13 +86,13 @@ const MultiStepForm = () => {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <PersonalDetails formData={formData} handleChange={handleChange} />;
+        return <PersonalDetails formData={formData} handleChange={handleChange} handleFileChange={handleFileChange} />;
       case 2:
         return <EducationalDetails formData={formData} handleChange={handleChange} />;
       case 3:
         return <FamilyDetails formData={formData} handleChange={handleChange} />;
       default:
-        return <PersonalDetails formData={formData} handleChange={handleChange} />;
+        return <PersonalDetails formData={formData} handleChange={handleChange} handleFileChange={handleFileChange} />;
     }
   };
 

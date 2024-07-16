@@ -11,6 +11,15 @@ const ShowProfile = () => {
   return (
     <div className="profile">
       <h1>Profile</h1>
+      {formData.profileImage && (
+        <div className="profile-image">
+          <img
+            src={URL.createObjectURL(new Blob([new Uint8Array(formData.profileImage.data)]))}
+            alt="Profile"
+            style={{ width: '150px', height: '150px' }}
+          />
+        </div>
+      )}
       <p><strong>Full Name:</strong> {formData.fullName}</p>
       <p><strong>Email:</strong> {formData.email}</p>
       <p><strong>Gender:</strong> {formData.gender}</p>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './About.css'; // Import your CSS file
 import { Button } from 'react-bootstrap';
 const About = () => {
@@ -57,7 +58,7 @@ const About = () => {
   return (
     <>
       <div className="about-section">
-        <h1 style={{ position: 'relative', marginTop: '50px' }}>About Us Page</h1>
+        <h1 style={{ position: 'relative', marginTop: '50px', color:'#b30047' }}>About Us </h1>
         <p>Some text about who we are and what we do.</p>
         <p>Resize the browser window to see that this page is responsive by the way.</p>
       </div>
@@ -70,11 +71,11 @@ const About = () => {
       <h1 style={{fontSize:'64px',lineHeight:'1.2em',verticalAlign:'baseline',textAlign:'start', marginBottom:'40px',color:'#ff3385',position:'relative', marginTop:'6rem' ,  marginLeft:'15px' }}>CREATE YOUR PROFILE<br/>TO FIND MATCH.....</h1>
       <p style={{textAlign:'start', position:'relative', marginLeft:'15px'}}>hello this is ankita and i love you  Ensure your CSS for the slideshow is correctly <br/>Feel free to adjust the content to better fit website's style and tone.......</p>
     <br/>
-    
+    <Link to="/register">
     <Button style={{backgroundColor:'rgb(255, 0, 102)',color:'white', position:'relative', marginRight:'580px', border:'1px solid pink'}} variant="pink" size="lg" active>
         Register Now
       </Button>{' '}
-            
+           </Link> 
     </div>
           </div>
           <div style={{ border: '1px solid white', padding:'30px',     boxShadow: 'rgba(0, 0, 0, 0.2) 0px 4px 8px' }}>

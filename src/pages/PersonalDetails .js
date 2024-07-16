@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PersonalDetails = ({ formData, handleChange }) => {
+const PersonalDetails = ({ formData, handleChange, handleFileChange }) => {
   return (
     <div className="form-step">
       <h2>Personal Details</h2>
@@ -62,6 +62,10 @@ const PersonalDetails = ({ formData, handleChange }) => {
       <div>
         <label>Pin Code:</label>
         <input type="text" name="pinCode" value={formData.pinCode} onChange={handleChange} />
+      </div>
+      <div>
+        <label>Profile Image:</label>
+        <input type="file" name="profileImage" onChange={handleFileChange} />
       </div>
     </div>
   );
