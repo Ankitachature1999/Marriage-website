@@ -4,7 +4,6 @@ import PersonalDetails from './PersonalDetails ';
 import EducationalDetails from './EducationalDetails';
 import FamilyDetails from './FamilyDetails';
 import './MultiStepForm.css';
-import axios from 'axios';
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
@@ -13,27 +12,22 @@ const MultiStepForm = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    gender: '',
+    salary: '',
     dateOfBirth: '',
-    height: '',
-    maritalStatus: '',
-    motherTongue: '',
-    religion: '',
-    city: '',
-    pinCode: '',
     highestQualification: '',
-    collegeName: '',
     job: '',
-    jobType: '',
-    annualIncome: '',
+    brotherName: '',
+    sisterName: '',
+    expectation: '',
     fatherName: '',
-    motherName: '',
-    liveWithFamily: '',
-    familyType: '',
-    diet: '',
-    profileImage: null // Make sure to initialize file inputs as null
+    fatherOccupation: '',
+    farm: '',
+    maternalUncle: '',
+    address: '',
+    mobileNo: '',
+    profilePicture: '',
   });
-
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -44,38 +38,88 @@ const MultiStepForm = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: files[0],
-    }));
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevData) => ({
+        ...prevData,
+        profilePicture: file,
+      }));
+    }
+  };
+
+  const validateStep = () => {
+    const newErrors = {};
+    switch (step) {
+      case 1:
+        if (!formData.fullName) newErrors.fullName = 'Full Name is required';
+        if (!formData.email) newErrors.email = 'Email is required';
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+        if (!formData.password) newErrors.password = 'Password is required';
+        else if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
+        else if (!/[A-Z]/.test(formData.password)) newErrors.password = 'Password must contain at least one uppercase letter';
+        else if (!/[a-z]/.test(formData.password)) newErrors.password = 'Password must contain at least one lowercase letter';
+        else if (!/[0-9]/.test(formData.password)) newErrors.password = 'Password must contain at least one number';
+        else if (!/[!@#$%^&*]/.test(formData.password)) newErrors.password = 'Password must contain at least one special character';
+        if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+        if (!formData.salary) newErrors.salary = 'Salary is required';
+        else if (isNaN(formData.salary)) newErrors.salary = 'Salary must be a number';
+        if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required';
+        break;
+      case 2:
+        if (!formData.highestQualification) newErrors.highestQualification = 'Highest Qualification is required';
+        if (!formData.job) newErrors.job = 'Job is required';
+        if (!formData.brotherName) newErrors.brotherName = 'Brother Name is required';
+        if (!formData.sisterName) newErrors.sisterName = 'Sister Name is required';
+        if (!formData.expectation) newErrors.expectation = 'Expectation is required';
+        break;
+      case 3:
+        if (!formData.fatherName) newErrors.fatherName = 'Father\'s Name is required';
+        if (!formData.address) newErrors.address = 'Address is required';
+        if (!formData.mobileNo) newErrors.mobileNo = 'Mobile No is required';
+        else if (!/^\d{10}$/.test(formData.mobileNo)) newErrors.mobileNo = 'Mobile No must be exactly 10 digits';
+        if (!formData.fatherOccupation) newErrors.fatherOccupation = 'Father\'s Occupation is required';
+        if (!formData.farm) newErrors.farm = 'Farm is required';
+        if (!formData.maternalUncle) newErrors.maternalUncle = 'Maternal Uncle is required';
+        break;
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const nextStep = () => {
-    setStep((prevStep) => prevStep + 1);
+    if (validateStep()) {
+      setStep((prevStep) => prevStep + 1);
+    }
   };
 
   const prevStep = () => {
     setStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formDataObj = new FormData();
-    for (const key in formData) {
-      formDataObj.append(key, formData[key]);
-    }
+    if (validateStep()) {
+      const formDataToSend = new FormData();
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
 
-    try {
-      await axios.post('http://localhost:3000/register', formDataObj, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      navigate('/ShowProfile');
-    } catch (error) {
-      console.error('Error registering user:', error);
+      fetch('http://localhost:5000/register', {
+        method: 'POST',
+        body: formDataToSend,
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          console.log('Success:', data);
+          navigate('/ShowProfile');
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
   };
 
@@ -86,25 +130,58 @@ const MultiStepForm = () => {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <PersonalDetails formData={formData} handleChange={handleChange} handleFileChange={handleFileChange} />;
+        return (
+          <PersonalDetails
+            formData={formData}
+            handleChange={handleChange}
+            handleImageChange={handleImageChange}
+            errors={errors}
+          />
+        );
       case 2:
-        return <EducationalDetails formData={formData} handleChange={handleChange} />;
+        return (
+          <EducationalDetails
+            formData={formData}
+            handleChange={handleChange}
+            errors={errors}
+          />
+        );
       case 3:
-        return <FamilyDetails formData={formData} handleChange={handleChange} />;
+        return (
+          <FamilyDetails
+            formData={formData}
+            handleChange={handleChange}
+            errors={errors}
+          />
+        );
       default:
-        return <PersonalDetails formData={formData} handleChange={handleChange} handleFileChange={handleFileChange} />;
+        return null;
     }
   };
 
   return (
     <div className="multi-step-form">
-      <button className="close-btn" onClick={closeForm}>X</button>
       <form onSubmit={handleSubmit}>
         {renderStep()}
         <div className="form-navigation">
-          {step > 1 && <button type="button" onClick={prevStep}>Previous</button>}
-          {step < 3 && <button type="button" onClick={nextStep}>Next</button>}
-          {step === 3 && <button type="submit">Submit</button>}
+          {step > 1 && (
+            <button type="button" onClick={prevStep} className="prev-btn">
+              Previous
+            </button>
+          )}
+          {step < 3 && (
+            <button type="button" onClick={nextStep} className="next-btn">
+              Next
+            </button>
+          )}
+          {step === 3 && (
+            <button type="submit" className="submit-btn">
+              Submit
+            </button>
+          )}
+          <button type="button" onClick={closeForm} className="close-btn">
+            Close
+          </button>
         </div>
       </form>
     </div>

@@ -1,45 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './ShowProfile.css';
+import { useNavigate } from 'react-router-dom';
 
 const ShowProfile = () => {
-  const formData = JSON.parse(localStorage.getItem('formData'));
+  const [formData, setFormData] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch profile data from server
+    fetch('http://localhost:5000/get-profile?userId=1') // Adjust URL and query parameter based on your endpoint and authentication mechanism
+      .then((response) => response.json())
+      .then((data) => {
+        setFormData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching profile data:', error);
+      });
+  }, []);
 
   if (!formData) {
-    return <div>No profile data found.</div>;
+    return <div className="profile">No profile data found.</div>;
   }
+
+  const handleEditProfile = () => {
+    navigate('/edit-profile'); // Navigate to the edit profile page
+  };
 
   return (
     <div className="profile">
-      <h1>Profile</h1>
-      {formData.profileImage && (
-        <div className="profile-image">
-          <img
-            src={URL.createObjectURL(new Blob([new Uint8Array(formData.profileImage.data)]))}
-            alt="Profile"
-            style={{ width: '150px', height: '150px' }}
-          />
+      <h1 className="profile-title">Profile</h1>
+      <div className="avatar-container">
+        {formData.profilePicture ? (
+          <img src={`http://localhost:5000/${formData.profilePicture}`} alt="Avatar" className="avatar" />
+        ) : (
+          <img src={'path/to/default/avatar.jpg'} alt="Avatar" className="avatar" />
+        )}
+      </div>
+      <div className="profile-info">
+        <div className="profile-field">
+          <strong>Full Name:</strong> <span>{formData.fullName}</span>
         </div>
-      )}
-      <p><strong>Full Name:</strong> {formData.fullName}</p>
-      <p><strong>Email:</strong> {formData.email}</p>
-      <p><strong>Gender:</strong> {formData.gender}</p>
-      <p><strong>Date of Birth:</strong> {formData.dateOfBirth}</p>
-      <p><strong>Height:</strong> {formData.height}</p>
-      <p><strong>Marital Status:</strong> {formData.maritalStatus}</p>
-      <p><strong>Mother Tongue:</strong> {formData.motherTongue}</p>
-      <p><strong>Religion:</strong> {formData.religion}</p>
-      <p><strong>City:</strong> {formData.city}</p>
-      <p><strong>Pin Code:</strong> {formData.pinCode}</p>
-      <p><strong>Highest Qualification:</strong> {formData.highestQualification}</p>
-      <p><strong>College Name:</strong> {formData.collegeName}</p>
-      <p><strong>Job:</strong> {formData.job}</p>
-      <p><strong>Job Type:</strong> {formData.jobType}</p>
-      <p><strong>Annual Income:</strong> {formData.annualIncome}</p>
-      <p><strong>Father's Name:</strong> {formData.fatherName}</p>
-      <p><strong>Mother's Name:</strong> {formData.motherName}</p>
-      <p><strong>Live With Family:</strong> {formData.liveWithFamily}</p>
-      <p><strong>Family Type:</strong> {formData.familyType}</p>
-      <p><strong>Diet:</strong> {formData.diet}</p>
+        <div className="profile-field">
+          <strong>Email:</strong> <span>{formData.email}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Mobile No:</strong> <span>{formData.mobileNo}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Salary:</strong> <span>{formData.salary}</span>
+        </div>
+        <div className="profile-field">
+          <strong>DOB:</strong> <span>{formData.dateOfBirth}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Qualification:</strong> <span>{formData.highestQualification}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Job:</strong> <span>{formData.job}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Brother's Name:</strong> <span>{formData.brotherName}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Sister's Name:</strong> <span>{formData.sisterName}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Expectation:</strong> <span>{formData.expectation}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Father's Name:</strong> <span>{formData.fatherName}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Father's Occupation:</strong> <span>{formData.fatherOccupation}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Farm:</strong> <span>{formData.farm}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Maternal Uncle:</strong> <span>{formData.maternalUncle}</span>
+        </div>
+        <div className="profile-field">
+          <strong>Address:</strong> <span>{formData.address}</span>
+        </div>
+        <button className="edit-profile-btn" onClick={handleEditProfile}>Edit Profile</button>
+      </div>
     </div>
   );
 };

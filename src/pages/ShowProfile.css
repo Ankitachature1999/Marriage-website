@@ -17,4 +17,18 @@
   .profile strong {
     margin-right: 10px;
   }
+  /* Add any necessary styling for ShowProfile component */
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
   

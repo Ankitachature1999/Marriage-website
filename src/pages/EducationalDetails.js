@@ -1,46 +1,59 @@
 import React from 'react';
 
-const EducationalDetails = ({ formData, handleChange }) => {
-  return (
-    <div>
-      <h2>Educational Details</h2>
-      <label>Highest Qualification</label>
+const EducationalDetails = ({ formData, handleChange, errors }) => (
+  <div>
+    <h2>Educational Details</h2>
+    <label>
+      Highest Qualification:
       <input
         type="text"
         name="highestQualification"
         value={formData.highestQualification}
         onChange={handleChange}
       />
-      <label>College Name</label>
-      <input
-        type="text"
-        name="collegeName"
-        value={formData.collegeName}
-        onChange={handleChange}
-      />
-      <label>Job</label>
+      {errors.highestQualification && <div className="error">{errors.highestQualification}</div>}
+    </label>
+    <label>
+      Job:
       <input
         type="text"
         name="job"
         value={formData.job}
         onChange={handleChange}
       />
-      <label>Job Type</label>
+      {errors.job && <div className="error">{errors.job}</div>}
+    </label>
+    <label>
+      Brother's Name:
       <input
         type="text"
-        name="jobType"
-        value={formData.jobType}
+        name="brotherName"
+        value={formData.brotherName}
         onChange={handleChange}
       />
-      <label>Annual Income</label>
+      {errors.brotherName && <div className="error">{errors.brotherName}</div>}
+    </label>
+    <label>
+      Sister's Name:
       <input
         type="text"
-        name="annualIncome"
-        value={formData.annualIncome}
+        name="sisterName"
+        value={formData.sisterName}
         onChange={handleChange}
       />
-    </div>
-  );
-};
+      {errors.sisterName && <div className="error">{errors.sisterName}</div>}
+    </label>
+    <label>
+      Expectation:
+      <input
+        type="text"
+        name="expectation"
+        value={formData.expectation}
+        onChange={handleChange}
+      />
+      {errors.expectation && <div className="error">{errors.expectation}</div>}
+    </label>
+  </div>
+);
 
 export default EducationalDetails;

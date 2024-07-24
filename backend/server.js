@@ -1,59 +1,22 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const multer = require('multer');
+const mysql = require('mysql');
+const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const port = 3000; // Make sure this port matches the one you're using in your frontend requests
+const port = 5000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-// Database connection
-mongoose.connect('mongodb://localhost:27017/mydatabase', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
+// Serve static files from 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Define a schema and model for your data
-const userSchema = new mongoose.Schema({
-  fullName: String,
-  email: String,
-  password: String,
-  confirmPassword: String,
-  gender: String,
-  dateOfBirth: String,
-  height: String,
-  maritalStatus: String,
-  motherTongue: String,
-  religion: String,
-  city: String,
-  pinCode: String,
-  highestQualification: String,
-  collegeName: String,
-  job: String,
-  jobType: String,
-  annualIncome: String,
-  fatherName: String,
-  motherName: String,
-  liveWithFamily: String,
-  familyType: String,
-  diet: String,
-  profileImage: String // Store the file path as a string
-});
-const User = mongoose.model('User', userSchema);
-
-// Multer setup for file uploads
+// Multer configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -62,30 +25,64 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + '-' + file.originalname);
   }
 });
-const upload = multer({ storage: storage });
 
-// Create uploads folder
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Route to handle form data submission
-app.post('/register', upload.single('profileImage'), async (req, res) => {
-  try {
-    const { body, file } = req;
-
-    const newUser = new User({
-      ...body,
-      profileImage: file ? file.path : null
-    });
-
-    await newUser.save();
-    res.status(201).send('User registered successfully');
-  } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).send('Error registering user');
-  }
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 50 * 1024 * 1024 } // 50 MB
 });
 
-// Start the server
+// Database connection
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'matrimony_db'
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the MySQL database.');
+});
+
+// Register route
+app.post('/register', upload.single('profilePicture'), (req, res) => {
+  const {
+    fullName, email, password, confirmPassword, salary, dateOfBirth, highestQualification,
+    job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
+    farm, maternalUncle, address, mobileNo
+  } = req.body;
+  const profilePicture = req.file ? req.file.path : null;
+
+  console.log('Received data:', req.body); // Log received data
+  console.log('Profile picture:', profilePicture); // Log profile picture path
+
+  const sql = `
+    INSERT INTO users (
+      fullName, email, password, salary, dateOfBirth, highestQualification,
+      job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
+      farm, maternalUncle, address, mobileNo, profilePicture
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const values = [
+    fullName, email, password, salary, dateOfBirth, highestQualification,
+    job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
+    farm, maternalUncle, address, mobileNo, profilePicture
+  ];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting data:', err); // Detailed error logging
+      res.status(500).send('Error saving data');
+      return;
+    }
+    console.log('Insert result:', result); // Log insert result
+    res.status(200).send('Data saved successfully');
+  });
+});
+
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });

@@ -11,6 +11,7 @@ import EducationalDetails from './pages/EducationalDetails'; // Adjusted import
 import Services from './pages/Services';
 import Testimonials from './pages/Testimonials';
 import CareerForm from './pages/CareerForm';
+
 import MultiStepForm from './pages/MultiStepForm';
 // import SearchForm from './components/SearchForm'; // Adjusted import
 import PaymentModal from './pages/PaymentModal';
