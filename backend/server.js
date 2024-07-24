@@ -52,22 +52,23 @@ app.post('/register', upload.single('profilePicture'), (req, res) => {
   const {
     fullName, email, password, confirmPassword, salary, dateOfBirth, highestQualification,
     job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
-    farm, maternalUncle, address, mobileNo
+    farm, maternalUncle, address, mobileNo,
+    
   } = req.body;
-  const profilePicture = req.file ? req.file.path : null;
+  const profilePicture = req.file ? req.file.path.replace('uploads/', '') : null;
 
   console.log('Received data:', req.body); // Log received data
   console.log('Profile picture:', profilePicture); // Log profile picture path
 
   const sql = `
     INSERT INTO users (
-      fullName, email, password, salary, dateOfBirth, highestQualification,
+      fullName, email, password, confirmPassword, salary, dateOfBirth, highestQualification,
       job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
       farm, maternalUncle, address, mobileNo, profilePicture
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const values = [
-    fullName, email, password, salary, dateOfBirth, highestQualification,
+    fullName, email, password, confirmPassword, salary, dateOfBirth, highestQualification,
     job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
     farm, maternalUncle, address, mobileNo, profilePicture
   ];
@@ -82,6 +83,32 @@ app.post('/register', upload.single('profilePicture'), (req, res) => {
     res.status(200).send('Data saved successfully');
   });
 });
+
+// Route to get profile data
+app.get('/get-profile', (req, res) => {
+  const userId = req.query.userId;
+  const sql = 'SELECT * FROM users WHERE id = ?';
+
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching profile data:', err);
+      res.status(500).send('Error fetching profile data');
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json(results[0]);
+    } else {
+      res.status(404).send('Profile not found');
+    }
+  });
+});
+
+// Additional route file for handling file uploads separately
+const uploadRoute = require('./routes/upload');
+
+// Use the upload route
+app.use('/api', uploadRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

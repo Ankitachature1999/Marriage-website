@@ -31,7 +31,11 @@ const ShowProfile = () => {
       <h1 className="profile-title">Profile</h1>
       <div className="avatar-container">
         {formData.profilePicture ? (
-          <img src={`http://localhost:5000/${formData.profilePicture}`} alt="Avatar" className="avatar" />
+          <img
+            src={`http://localhost:5000/uploads/${formData.profilePicture}`} // Path to profile picture in "uploads" folder
+            alt="Avatar"
+            className="avatar"
+          />
         ) : (
           <img src={'path/to/default/avatar.jpg'} alt="Avatar" className="avatar" />
         )}
