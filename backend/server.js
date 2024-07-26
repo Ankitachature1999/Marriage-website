@@ -4,6 +4,8 @@ const multer = require('multer');
 const mysql = require('mysql');
 const cors = require('cors');
 const path = require('path');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 const app = express();
 const port = 5000;
@@ -47,18 +49,27 @@ db.connect((err) => {
   console.log('Connected to the MySQL database.');
 });
 
+// Create a transporter object for sending emails
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // Use your email service provider
+  auth: {
+    user: 'your-email@gmail.com',
+    pass: 'your-email-password'
+  }
+});
+
 // Register route
 app.post('/register', upload.single('profilePicture'), (req, res) => {
   const {
     fullName, email, password, confirmPassword, salary, dateOfBirth, highestQualification,
     job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
-    farm, maternalUncle, address, mobileNo,
-    
+    farm, maternalUncle, address, mobileNo
   } = req.body;
   const profilePicture = req.file ? req.file.path.replace('uploads/', '') : null;
 
-  console.log('Received data:', req.body); // Log received data
-  console.log('Profile picture:', profilePicture); // Log profile picture path
+  // Generate unique email and password
+  const generatedEmail = `${Date.now()}@example.com`;
+  const generatedPassword = crypto.randomBytes(8).toString('hex');
 
   const sql = `
     INSERT INTO users (
@@ -68,47 +79,52 @@ app.post('/register', upload.single('profilePicture'), (req, res) => {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const values = [
-    fullName, email, password, confirmPassword, salary, dateOfBirth, highestQualification,
+    fullName, generatedEmail, generatedPassword, confirmPassword, salary, dateOfBirth, highestQualification,
     job, brotherName, sisterName, expectation, fatherName, fatherOccupation,
     farm, maternalUncle, address, mobileNo, profilePicture
   ];
 
   db.query(sql, values, (err, result) => {
     if (err) {
-      console.error('Error inserting data:', err); // Detailed error logging
+      console.error('Error inserting data:', err);
       res.status(500).send('Error saving data');
       return;
     }
-    console.log('Insert result:', result); // Log insert result
-    res.status(200).send('Data saved successfully');
+
+    // Send confirmation email
+    const mailOptions = {
+      from: 'your-email@gmail.com',
+      to: generatedEmail,
+      subject: 'Registration Successful',
+      text: `Your registration is successful. Here are your login credentials:\n\nEmail: ${generatedEmail}\nPassword: ${generatedPassword}`
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error('Error sending email:', err);
+        res.status(500).send('Error sending email');
+        return;
+      }
+      console.log('Email sent:', info.response);
+      res.status(200).send('Data saved successfully');
+    });
   });
 });
 
-// Route to get profile data
-app.get('/get-profile', (req, res) => {
-  const userId = req.query.userId;
-  const sql = 'SELECT * FROM users WHERE id = ?';
+// Route to get all users
+app.get('/get-all-users', (req, res) => {
+  const sql = 'SELECT * FROM users';
 
-  db.query(sql, [userId], (err, results) => {
+  db.query(sql, (err, results) => {
     if (err) {
-      console.error('Error fetching profile data:', err);
-      res.status(500).send('Error fetching profile data');
+      console.error('Error fetching users:', err);
+      res.status(500).send('Error fetching users');
       return;
     }
 
-    if (results.length > 0) {
-      res.json(results[0]);
-    } else {
-      res.status(404).send('Profile not found');
-    }
+    res.json(results);
   });
 });
-
-// Additional route file for handling file uploads separately
-const uploadRoute = require('./routes/upload');
-
-// Use the upload route
-app.use('/api', uploadRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

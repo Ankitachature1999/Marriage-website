@@ -57,6 +57,7 @@ const About = () => {
  
   return (
     <>
+    <div className='body'>
       <div className="about-section">
         <h1 style={{ position: 'relative', marginTop: '50px', color:'#b30047' }}>About Us </h1>
         <p>Some text about who we are and what we do.</p>
@@ -186,7 +187,7 @@ const About = () => {
           </div>
         </div>
       </div>
-      
+      </div>
     </>
     
   );

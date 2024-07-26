@@ -1,55 +1,121 @@
-.container {
-    margin-top: 50px;
-    max-width: 600px;
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #343a40;
-  }
-  
-  .form-label {
-    color: #495057;
-  }
-  
-  .form-control {
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 5px;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-  }
-  
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
+.contact-section {
+  padding: 50px;
+  text-align: center;
+  color: rgb(45, 44, 44);
+  background-image: url('../../public/images/contact-4.jpg'); /* Replace with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  height: 400px;
+  position: relative;
+}
 
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.contact-form, .contact-info {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.contact-form h2, .contact-info h2 {
+  color: rgb(179, 0, 71);
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.contact-form button {
+  padding: 10px 20px;
+  background-color: rgb(255, 0, 102);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-info p {
+  margin: 8px 0;
+}
+
+.map-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 300px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
   .contact-section {
-    padding: 50px;
-    text-align: center;
-  
-    color: rgb(45, 44, 44);
-    background-image: url('../../public//images/contact-4.jpg'); /* Replace with the actual path to your image */
-    background-size: cover; /* Ensures the background image covers the entire div */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the background image from repeating */
-    opacity:  1;
-    height: 400px;
-    position: relative;
-    margin-top: 3r;
+    height: 200px;
   }
-  
+
+  .contact-form, .contact-info {
+    width: 90%;
+  }
+
+  .contact-container {
+    padding: 10px;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .contact-form, .contact-info {
+    width: 80%;
+  }
+
+  .contact-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .contact-form, .contact-info {
+    width: 48%;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .contact-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .contact-form, .contact-info {
+    width: 45%;
+  }
+}
