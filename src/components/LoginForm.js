@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios'; // Make sure axios is installed
 import './LoginForm.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginForm({ show, handleClose, registeredUsers }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [forgotPassword, setForgotPassword] = useState(false); // New state for forgot password
   const [errors, setErrors] = useState({});
   const [emailSent, setEmailSent] = useState(false); // New state for email sent status
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,13 +27,27 @@ function LoginForm({ show, handleClose, registeredUsers }) {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      const user = registeredUsers.find(user => user.email === formData.email && user.password === formData.password);
-      if (user) {
-        alert('Login Successful');
-        handleClose();
-      } else {
-        setErrors({ general: 'Invalid email or password' });
-      }
+      fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+            navigate('/profile');
+            handleClose();
+          } else {
+            setErrors({ general: 'Invalid email or password' });
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setErrors({ general: 'An error occurred. Please try again.' });
+        });
     } else {
       setErrors(formErrors);
     }
@@ -147,7 +163,7 @@ function LoginForm({ show, handleClose, registeredUsers }) {
           </small>
         </div>
         <div className="text-center mt-3">
-          <span>Do Not Have An Account? <a href="#" onClick={() => handleClose()}>
+          <span>Do Not Have An Account? <a href="#" onClick={handleClose}>
             <Link to="/register">Register</Link>
           </a></span>
         </div>

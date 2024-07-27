@@ -36,6 +36,28 @@ const MultiStepForm = () => {
       ...prevData,
       [name]: value,
     }));
+
+    // Check email availability immediately
+    if (name === 'email') {
+      fetch(`http://localhost:5000/check-email?email=${value}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.exists) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              email: 'Email already exists. Please use another email.',
+            }));
+          } else {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              email: '',
+            }));
+          }
+        })
+        .catch(() => {
+          // Handle fetch errors if needed
+        });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -102,23 +124,46 @@ const MultiStepForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     if (validateStep()) {
       const formDataToSend = new FormData();
       for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
+        if (key === 'profilePicture' && formData[key]) {
+          formDataToSend.append(key, formData[key], formData[key].name);
+        } else {
+          formDataToSend.append(key, formData[key]);
+        }
       }
 
       fetch('http://localhost:5000/register', {
         method: 'POST',
         body: formDataToSend,
       })
-        .then((response) => response.text())
-        .then((data) => {
-          console.log('Success:', data);
-          navigate('/ShowProfile');
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then((text) => { throw new Error(text); });
+          }
+          return response.text();
+        })
+        .then(() => {
+          alert('Registration completed successfully!');
+          setTimeout(() => {
+            navigate('/LoginForm');
+          }, 3000); // Redirect after 3 seconds
         })
         .catch((error) => {
-          console.error('Error:', error);
+          const errorMessage = error.message.includes('Email already exists')
+            ? 'Email already exists. Please use another email.'
+            : 'An error occurred. Please try again.';
+          
+          if (errorMessage === 'Email already exists. Please use another email.') {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              email: 'Email already exists. Please use another email.',
+            }));
+          } else {
+            alert(errorMessage);
+          }
         });
     }
   };

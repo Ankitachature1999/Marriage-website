@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<MultiStepForm />} />
-          <Route path="/profiles" element={<ProfilesPage />} />
+          <Route path="/profile" element={<ProfilesPage />} />
           {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
