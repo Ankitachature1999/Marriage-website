@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, Modal } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaSignInAlt } from 'react-icons/fa';
 import LoginForm from './LoginForm';
@@ -13,10 +13,9 @@ function Header() {
 
   return (
     <>
-      <div className="pink-navbar" >
-      <p className="welcome">Welcome to our website</p>
+      <div className="pink-navbar">
+        <p className="welcome">Welcome to our website</p>
         <span className="call-us">Call Us-9595959595</span>
-      
       </div>
       <Navbar bg="transparent" variant="dark" expand="lg" className="transparent-navbar px-3">
         <Navbar.Brand className="logo" href="/">Matrimony</Navbar.Brand>
@@ -48,11 +47,16 @@ function Header() {
         </Navbar.Collapse>
       </Navbar>
 
-      <LoginForm show={showLogin} handleClose={handleCloseLogin} />
+      <Modal show={showLogin} onHide={handleCloseLogin} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <LoginForm onClose={handleCloseLogin} />
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
 
 export default Header;
-
-

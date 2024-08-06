@@ -1,30 +1,34 @@
-const express = require('express');
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const router = express.Router();
+// const express = require('express');
+// const mysql = require('mysql2/promise');
+// const cors = require('cors');
 
-const uploadDir = path.join(__dirname, '..', 'uploads');
+// const app = express();
+// const PORT = process.env.PORT || 5000;
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+// // Middleware
+// app.use(cors()); // Enable CORS for all routes
+// app.use(express.json()); // To parse JSON bodies
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  }
-});
+// // Database connection
+// const pool = mysql.createPool({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '', // Replace with your database password
+//   database: 'matrimony_db' // Replace with your database name
+// });
 
-const upload = multer({ storage: storage });
+// // Route to get all profiles
+// app.get('/api/profiles', async (req, res) => {
+//   try {
+//     const [profiles] = await pool.query('SELECT * FROM users');
+//     res.json(profiles);
+//   } catch (error) {
+//     console.error('Error fetching profiles:', error);
+//     res.status(500).json({ error: 'An error occurred while fetching profiles.' });
+//   }
+// });
 
-router.post('/upload', upload.single('profilePicture'), (req, res) => {
-  // handle the uploaded file
-  res.send('File uploaded successfully');
-});
-
-module.exports = router;
+// // Start the server
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
