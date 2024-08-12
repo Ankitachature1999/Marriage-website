@@ -50,3 +50,14 @@
     background-color: #0056b3;
   }
   
+
+  .error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: inline-block;
+  }
+  
+  .error-text::before {
+    content: '* ';
+  }

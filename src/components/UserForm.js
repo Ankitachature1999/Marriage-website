@@ -24,6 +24,9 @@ const UserForm = () => {
     profilePicture: null,
   });
 
+  // State for storing validation errors
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,8 +37,71 @@ const UserForm = () => {
     }));
   };
 
+  const validate = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    // Full Name: Required and must be at least 3 characters long
+    if (!formData.fullName || formData.fullName.length < 3) {
+      newErrors.fullName = '* Full Name must be at least 3 characters long';
+      isValid = false;
+    }
+
+    // Email: Required and must be a valid email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      newErrors.email = '* Please enter a valid email address';
+      isValid = false;
+    }
+
+    // Password: Required, must be at least 8 characters with numbers and letters
+    if (
+      !formData.password ||
+      formData.password.length < 8 ||
+      !/\d/.test(formData.password) ||
+      !/[a-zA-Z]/.test(formData.password)
+    ) {
+      newErrors.password =
+        '* Password must be at least 8 characters long and include both numbers and letters';
+      isValid = false;
+    }
+
+    // Confirm Password: Must match Password
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = '* Passwords do not match';
+      isValid = false;
+    }
+
+    // Salary: Optional but must be a positive number
+    if (formData.salary && formData.salary <= 0) {
+      newErrors.salary = '* Salary must be a positive number';
+      isValid = false;
+    }
+
+    // Date of Birth: Required
+    if (!formData.dateOfBirth) {
+      newErrors.dateOfBirth = '* Date of Birth is required';
+      isValid = false;
+    }
+
+    // Mobile Number: Optional but must be 10 digits
+    const mobileNoRegex = /^[0-9]{10}$/;
+    if (formData.mobileNo && !mobileNoRegex.test(formData.mobileNo)) {
+      newErrors.mobileNo = '* Mobile Number must be 10 digits long';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+
     const formDataToSend = new FormData();
 
     for (const key in formData) {
@@ -81,7 +147,7 @@ const UserForm = () => {
           mobileNo: '',
           profilePicture: null,
         });
-        navigate('/login'); // Navigate to the login page
+        navigate('/login');
       }
     } catch (error) {
       console.error('Error submitting the form:', error);
@@ -93,7 +159,7 @@ const UserForm = () => {
     <div className="user-form-container">
       <h1>Register</h1>
       <form onSubmit={handleSubmit} className="user-form">
-        {Object.keys(formData).map((key) => (
+        {Object.keys(formData).map((key) =>
           key !== 'profilePicture' ? (
             <div className="form-group" key={key}>
               <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1').toUpperCase()}</label>
@@ -106,6 +172,7 @@ const UserForm = () => {
                 className="form-control"
                 required
               />
+              {errors[key] && <p className="error-text">{errors[key]}</p>}
             </div>
           ) : (
             <div className="form-group" key={key}>
@@ -117,12 +184,15 @@ const UserForm = () => {
                 onChange={handleChange}
                 className="form-control-file"
               />
+              {errors[key] && <p className="error-text">{errors[key]}</p>}
             </div>
           )
-        ))}
+        )}
         <button type="submit" className="submit-button">Register</button>
       </form>
+     
     </div>
+  
   );
 };
 

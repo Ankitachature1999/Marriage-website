@@ -1,0 +1,67 @@
+.education-details-container {
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #27478b;
+  border-bottom: 2px solid #27478b;
+  padding-bottom: 5px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-group div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.currency-input {
+  position: relative;
+}
+
+.currency-input input {
+  width: 100%;
+  padding-right: 30px; /* Adjust this based on currency symbol width */
+}
+
+.currency-symbol {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  color: #495057;
+}

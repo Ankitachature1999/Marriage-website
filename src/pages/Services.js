@@ -42,7 +42,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button" onClick={() => navigate('/payment')}>Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/paymentModal')}>Pay Now</button>
       </div>
     ),
     Gold: (
@@ -61,7 +61,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button" onClick={() => navigate('/payment')}>Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/paymentModal')}>Pay Now</button>
       </div>
     ),
     Diamond: (
@@ -80,7 +80,7 @@ const Services = () => {
           <li>View Contact details</li>
           <li>Personalized support</li>
         </ol>
-        <button className="pay-now-button" onClick={() => navigate('/payment')}>Pay Now</button>
+        <button className="pay-now-button" onClick={() => navigate('/paymentModal')}>Pay Now</button>
       </div>
     ),
   };

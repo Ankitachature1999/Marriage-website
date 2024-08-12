@@ -137,7 +137,7 @@ function Home() {
         </div>
       </div>
          
-          <Link to="/register">
+          <Link to="/MultiStepForm">
                     <Button variant="primary" className="btn-hover" style={{ backgroundColor: 'rgb(255, 0, 102)', padding: '10px 20px', width: '150px',border:'1px solid rgb(255, 0, 102)', }}>
                       Register
                     </Button>
